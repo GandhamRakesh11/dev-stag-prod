@@ -1,0 +1,25 @@
+name: STAGING Deployment
+
+on:
+  push:
+    branches:
+      - test
+
+jobs:
+  test-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image (STAG)
+        run: docker build -t email-automation:stag .
+
+      - name: Run Container (STAG)
+        run: |
+          docker run -d \
+            --name email-automation-stag \
+            --env-file .env.stag \
+            -p 5001:5000 \
+            email-automation:stag

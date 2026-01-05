@@ -1,0 +1,25 @@
+name: PRODUCTION Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  prod-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image (PROD)
+        run: docker build -t email-automation:prod .
+
+      - name: Run Container (PROD)
+        run: |
+          docker run -d \
+            --name email-automation-prod \
+            --env-file .env.prod \
+            -p 5002:5000 \
+            email-automation:prod

@@ -1,0 +1,25 @@
+name: DEV Deployment
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  dev-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image (DEV)
+        run: docker build -t email-automation:dev .
+
+      - name: Run Container (DEV)
+        run: |
+          docker run -d \
+            --name email-automation-dev \
+            --env-file .env.dev \
+            -p 5000:5000 \
+            email-automation:dev
