@@ -3,9 +3,9 @@ services:
     name: email-automation-dev
     env: python
     plan: free
-    branch: main
+    branch: dev
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    startCommand: gunicorn app.app:app
     envVars:
       - key: ENVIRONMENT
         value: DEV
@@ -20,9 +20,9 @@ services:
     name: email-automation-stag
     env: python
     plan: free
-    branch: main
+    branch: test
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    startCommand: gunicorn app.app:app
     envVars:
       - key: ENVIRONMENT
         value: STAG
@@ -39,7 +39,7 @@ services:
     plan: free
     branch: main
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    startCommand: gunicorn app.app:app
     envVars:
       - key: ENVIRONMENT
         value: PROD
