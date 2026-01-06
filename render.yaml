@@ -3,7 +3,7 @@ services:
     name: email-automation-dev
     env: python
     plan: free
-    branch: dev
+    branch: main
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
     envVars:
@@ -20,7 +20,7 @@ services:
     name: email-automation-stag
     env: python
     plan: free
-    branch: stag
+    branch: main
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
     envVars:
