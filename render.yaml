@@ -20,7 +20,7 @@ services:
     name: email-automation-stag
     env: python
     plan: free
-    branch: test
+    branch: stag
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
     envVars:
