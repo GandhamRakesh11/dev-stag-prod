@@ -1,0 +1,51 @@
+services:
+  - type: web
+    name: email-automation-dev
+    env: python
+    plan: free
+    branch: dev
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: ENVIRONMENT
+        value: DEV
+      - key: DEBUG
+        value: "true"
+      - key: LOG_LEVEL
+        value: debug
+      - key: MONGO_URI
+        sync: false
+
+  - type: web
+    name: email-automation-stag
+    env: python
+    plan: free
+    branch: test
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: ENVIRONMENT
+        value: STAG
+      - key: DEBUG
+        value: "false"
+      - key: LOG_LEVEL
+        value: info
+      - key: MONGO_URI
+        sync: false
+
+  - type: web
+    name: email-automation-prod
+    env: python
+    plan: free
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: ENVIRONMENT
+        value: PROD
+      - key: DEBUG
+        value: "false"
+      - key: LOG_LEVEL
+        value: error
+      - key: MONGO_URI
+        sync: false
